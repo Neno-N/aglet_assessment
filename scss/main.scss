@@ -1,0 +1,320 @@
+/*======= Mixins, Maps and Functions =======*/
+
+//Mixins
+@mixin flexCenter($direction){
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: $direction;
+}
+
+@mixin easeTransition{
+    transition: all .5s ease-in;
+    
+}
+
+@mixin largeSceen{
+    @media (min-width:$wideScreen-min){
+        @content;
+    }
+}
+
+@mixin mediumScreen{
+    @media (min-width: $mediumScreen){
+        @content;
+    }
+}
+
+@mixin smallScreen{
+    @media (max-width: $smallScreen){
+        @content;
+    }
+}
+
+//Maps
+$font-weights: ("regular": 400, "medium": 500, "bold":600);
+
+//Functions
+@function weight($weightname){
+    @return map-get($font-weights,$weightname)
+}
+/*======= End of Mixins, Maps and Functions =======*/
+
+/*======= Variables =======*/
+
+$primary-color: #000;
+$secondary-color: #fff;
+$grey: #222;
+$wideScreen-min: 1025px;
+$mediumScreen: 960px;
+$smallScreen: 735px;
+
+/*======= End of Variables =======*/
+
+/*======= Global Styles =======*/
+
+*, ::after, ::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 62.5%;
+}
+
+body {
+    font-family: "antoni web", "Helvetica Neue", "Helvetica", Arial, sans-serif;
+    color: $secondary-color;
+    font-size: 14px;
+    font-weight: weight("regular");
+    line-height: 1;
+    background: $primary-color;
+    -webkit-font-smoothing: antialiased;
+    width: 100%;
+    position: relative;
+}
+
+h1, h2, h3 {
+    font-weight: weight("bold");
+    font-size: 3.5rem;
+}
+
+h1{
+    font-size: 5.5rem;
+}
+h2{
+    font-size: 3.5rem;
+}
+h3 {
+    font-size: 2.5rem;
+}
+
+button{
+    cursor: pointer;
+    background: none;
+    border: 0;
+    outline: 0;
+    color: inherit;
+}
+a {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+li {
+    list-style: none;
+}
+
+img{
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/*======= End of Global Styles =======*/
+
+/*======= Header =======*/
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 2;
+}
+
+.nav-menu {
+    text-align: right;
+
+    &__btn {
+        @extend h2;
+        padding: 2.5rem;
+    }
+
+    @include largeSceen(){
+        display: none;
+    }
+}
+
+.nav{
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+
+    background-color: $secondary-color;
+    padding: 2.5rem;
+    height: 100vh;
+    width: 80%;
+    color: $primary-color;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: column;
+
+    transform: translateX(100vw);
+    @include easeTransition();
+
+    .logo{
+        display: none;
+    }
+
+    .nav-exit-menu-btn{
+        @extend h2;
+        align-self: flex-end;
+    }
+
+    .nav-list{
+        text-transform: lowercase;
+        
+        .nav-item{
+            @extend h2;
+            margin-block: 2rem;
+            position: relative;
+            padding-bottom: .3rem;
+
+            &::after {
+                    content: '';
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    height: 10%;
+                    width: 0%;
+                    background-color: $secondary-color;
+                    @include easeTransition();
+                }
+            &:hover{
+                &::after{
+                    width: 105%;
+                }
+            }
+
+            a{
+                color: inherit;
+            }
+        }
+        
+    }
+
+    &.open {
+        transform: translateX(0);
+        @include easeTransition();
+    }
+
+    //media queries
+    @include smallScreen(){
+        width: 100%;
+    }
+
+    @include largeSceen(){
+        background: none;
+        transform: translateX(0);
+        flex-direction: row;
+        color: $secondary-color;
+        padding: 4rem;
+        width: 100%;
+        height: fit-content;
+
+        .logo{
+            display: unset;
+            width: 7vw;
+            cursor: pointer;
+        }
+
+        .nav-list{
+            display: flex;
+            gap: 1rem;
+
+            .nav-item{
+                margin: 0;
+                font-size: inherit;
+            }
+        }
+
+        .nav-footer, .nav-exit-menu-btn{
+            display: none;
+        }
+    }
+}
+
+.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 105%;
+    height: 10%;
+    width: 105%;
+    background-color: $secondary-color;
+}
+
+
+/*======= End of Header =======*/
+
+
+
+/*======= Video Sliders =======*/
+
+.video-slider{
+    height: 100%;
+    width: fit-content;
+
+    .video-slider__container{
+        height: 100%;
+        width: 100%;
+        display: grid;
+        grid-auto-flow: rows;
+        cursor: pointer;
+    }
+
+    .video-slider__card{
+        width: 100%;
+        height: 100%;
+        position: relative;
+
+        .card__vid {
+            width: 100%;
+            height: 100%;
+        }
+
+        .card__info{
+            position: absolute;
+            top: 40%;
+            padding-left: 3rem;
+            
+        }
+
+        
+    }
+
+    @include mediumScreen(){
+        @include flexCenter(row);
+        background-color: red;
+
+        .video-slider__container{
+            grid-auto-flow: column;
+            grid-auto-columns: 37%;
+
+            width: 100%;
+
+        }
+    }
+}
+
+@include mediumScreen() {
+
+    body{
+        height: 100vh;
+        cursor: grab;
+        overflow-y: hidden;
+        overflow-x: auto;
+    }
+}
+
+/*======= End of Video Sliders =======*/
+
+
+

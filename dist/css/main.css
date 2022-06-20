@@ -1,0 +1,241 @@
+/*======= Mixins, Maps and Functions =======*/
+/*======= End of Mixins, Maps and Functions =======*/
+/*======= Variables =======*/
+/*======= End of Variables =======*/
+/*======= Global Styles =======*/
+*, ::after, ::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "antoni web", "Helvetica Neue", "Helvetica", Arial, sans-serif;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1;
+  background: #000;
+  -webkit-font-smoothing: antialiased;
+  width: 100%;
+  position: relative;
+}
+
+h1, h2, .nav .nav-list .nav-item, .nav .nav-exit-menu-btn, .nav-menu__btn, h3 {
+  font-weight: 600;
+  font-size: 3.5rem;
+}
+
+h1 {
+  font-size: 5.5rem;
+}
+
+h2, .nav .nav-list .nav-item, .nav .nav-exit-menu-btn, .nav-menu__btn {
+  font-size: 3.5rem;
+}
+
+h3 {
+  font-size: 2.5rem;
+}
+
+button {
+  cursor: pointer;
+  background: none;
+  border: 0;
+  outline: 0;
+  color: inherit;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+li {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/*======= End of Global Styles =======*/
+/*======= Header =======*/
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+.nav-menu {
+  text-align: right;
+}
+.nav-menu__btn {
+  padding: 2.5rem;
+}
+@media (min-width: 1025px) {
+  .nav-menu {
+    display: none;
+  }
+}
+
+.nav {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  background-color: #fff;
+  padding: 2.5rem;
+  height: 100vh;
+  width: 80%;
+  color: #000;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-direction: column;
+  transform: translateX(100vw);
+  transition: all 0.5s ease-in;
+}
+.nav .logo {
+  display: none;
+}
+.nav .nav-exit-menu-btn {
+  align-self: flex-end;
+}
+.nav .nav-list {
+  text-transform: lowercase;
+}
+.nav .nav-list .nav-item {
+  margin-block: 2rem;
+  position: relative;
+  padding-bottom: 0.3rem;
+}
+.nav .nav-list .nav-item::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 10%;
+  width: 0%;
+  background-color: #fff;
+  transition: all 0.5s ease-in;
+}
+.nav .nav-list .nav-item:hover::after {
+  width: 105%;
+}
+.nav .nav-list .nav-item a {
+  color: inherit;
+}
+.nav.open {
+  transform: translateX(0);
+  transition: all 0.5s ease-in;
+}
+@media (max-width: 735px) {
+  .nav {
+    width: 100%;
+  }
+}
+@media (min-width: 1025px) {
+  .nav {
+    background: none;
+    transform: translateX(0);
+    flex-direction: row;
+    color: #fff;
+    padding: 4rem;
+    width: 100%;
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+  }
+  .nav .logo {
+    display: unset;
+    width: 7vw;
+    cursor: pointer;
+  }
+  .nav .nav-list {
+    display: flex;
+    gap: 1rem;
+  }
+  .nav .nav-list .nav-item {
+    margin: 0;
+    font-size: inherit;
+  }
+  .nav .nav-footer, .nav .nav-exit-menu-btn {
+    display: none;
+  }
+}
+
+.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 105%;
+  height: 10%;
+  width: 105%;
+  background-color: #fff;
+}
+
+/*======= End of Header =======*/
+/*======= Video Sliders =======*/
+.video-slider {
+  height: 100%;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.video-slider .video-slider__container {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-auto-flow: rows;
+  cursor: pointer;
+}
+.video-slider .video-slider__card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.video-slider .video-slider__card .card__vid {
+  width: 100%;
+  height: 100%;
+}
+.video-slider .video-slider__card .card__info {
+  position: absolute;
+  top: 40%;
+  padding-left: 3rem;
+}
+@media (min-width: 960px) {
+  .video-slider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    background-color: red;
+  }
+  .video-slider .video-slider__container {
+    grid-auto-flow: column;
+    grid-auto-columns: 37%;
+    width: 100%;
+  }
+}
+
+@media (min-width: 960px) {
+  body {
+    height: 100vh;
+    cursor: -webkit-grab;
+    cursor: grab;
+    overflow-y: hidden;
+    overflow-x: auto;
+  }
+}
+/*======= End of Video Sliders =======*//*# sourceMappingURL=main.css.map */
