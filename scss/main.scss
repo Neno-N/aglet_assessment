@@ -307,11 +307,25 @@ header {
             filter: brightness(25%);
         }
 
-        .card__info{
+        &__info{
             position: absolute;
             top: 40%;
             padding-left: 3rem;
             
+        }
+
+        @include mobileScreen(){
+            &__info {
+                
+                &-title{
+                    font-size: 3rem;
+                }
+
+                h3{
+                    font-size: 2rem;
+                }
+            
+            }
         }
 
         
