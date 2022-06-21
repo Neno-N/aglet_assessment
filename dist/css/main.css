@@ -292,6 +292,27 @@ header {
 .contact__info p {
   font-size: 2rem;
 }
+@media (max-width: 640px) {
+  .contact {
+    padding-left: 2rem;
+    gap: 1rem;
+  }
+  .contact__img {
+    width: 100%;
+    height: 55%;
+    flex: 1;
+  }
+  .contact__img img {
+    height: 100%;
+  }
+  .contact__info {
+    flex: 1.5;
+  }
+  .contact__info-title {
+    font-size: 10rem;
+    left: -10%;
+  }
+}
 
 /*======= End of Contact =======*/
 /*======= Media queries =======*/
