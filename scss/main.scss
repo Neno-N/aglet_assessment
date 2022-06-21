@@ -381,6 +381,7 @@ header {
 
             img{
                 height: 100%;
+                object-fit: cover;
             }
         }
         
@@ -389,7 +390,11 @@ header {
 
             &-title {
                 font-size: 10rem;
-                left: -10%;
+                left: -35%;
+            }
+
+            p{
+                font-size: 1.5rem;
             }
         }
     }

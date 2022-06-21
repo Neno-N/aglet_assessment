@@ -304,13 +304,18 @@ header {
   }
   .contact__img img {
     height: 100%;
+    -o-object-fit: cover;
+       object-fit: cover;
   }
   .contact__info {
     flex: 1.5;
   }
   .contact__info-title {
     font-size: 10rem;
-    left: -10%;
+    left: -35%;
+  }
+  .contact__info p {
+    font-size: 1.5rem;
   }
 }
 
