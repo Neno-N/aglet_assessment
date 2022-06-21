@@ -79,17 +79,13 @@ img {
   height: 100vh;
   background-color: #000;
   z-index: 100;
+  pointer-events: none;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
   transform: translateX(-100%);
   transition: all 0.5s ease-in;
-}
-.transition .transition-icon {
-  padding: 3rem;
-  border-radius: 50%;
-  background-color: #222;
 }
 .transition .transition-icon .bx {
   font-size: 15rem;

@@ -15,13 +15,14 @@ const navLink = document.querySelectorAll('.nav-link')
 /*======= End of Variables ======*/
 
 /*======= Onload =======*/
+
 window.onload = () =>{
     setTimeout(() => {
-            transitionEl.classList.remove('is-active')
-            transitionEl.classList.remove('is-active2')
-
+        transitionEl.classList.remove('is-active')
+        transitionEl.classList.remove('is-active2')
     }, 1000);
 }
+
 /*======= End of Onload =======*/
 
 
@@ -36,6 +37,8 @@ const toggleMenu = () => {
 }
 
 /*======= End of Functions =======*/
+
+
 
 /*======= Event Listeners =======*/
 
@@ -52,6 +55,7 @@ navLink.forEach(link=>{
 //Play/Pause Vid when hover
 videos.forEach(vid=>{
     vid.addEventListener('mouseenter',()=>{
+        
         //dim other videos
         videos.forEach(item=>{
             item.classList.add('vid-dim')
