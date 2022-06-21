@@ -1,6 +1,7 @@
-/*======= Mixins, Maps and Functions =======*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 
-//Mixins
+/*======= Mixins =======*/
+
 @mixin flexCenter($direction){
     display: flex;
     justify-content: center;
@@ -13,41 +14,18 @@
     
 }
 
-@mixin largeSceen{
-    @media (min-width:$wideScreen-min){
-        @content;
-    }
-}
-
-@mixin mediumScreen{
-    @media (min-width: $mediumScreen){
-        @content;
-    }
-}
-
 @mixin smallScreen{
-    @media (max-width: $smallScreen){
+    @media (max-width: 735px){
         @content;
     }
 }
-
-//Maps
-$font-weights: ("regular": 400, "medium": 500, "bold":600);
-
-//Functions
-@function weight($weightname){
-    @return map-get($font-weights,$weightname)
-}
-/*======= End of Mixins, Maps and Functions =======*/
+/*======= End of Mixins =======*/
 
 /*======= Variables =======*/
 
 $primary-color: #000;
 $secondary-color: #fff;
 $grey: #222;
-$wideScreen-min: 1025px;
-$mediumScreen: 960px;
-$smallScreen: 735px;
 
 /*======= End of Variables =======*/
 
@@ -65,19 +43,20 @@ html {
 }
 
 body {
-    font-family: "antoni web", "Helvetica Neue", "Helvetica", Arial, sans-serif;
+    font-family: 'Poppins', "Helvetica Neue", "Helvetica", Arial, sans-serif;
     color: $secondary-color;
     font-size: 14px;
-    font-weight: weight("regular");
+    font-weight: 400;
     line-height: 1;
     background: $primary-color;
     -webkit-font-smoothing: antialiased;
     width: 100%;
     position: relative;
+    cursor: grab;
 }
 
 h1, h2, h3 {
-    font-weight: weight("bold");
+    font-weight: 600;
     font-size: 3.5rem;
 }
 
@@ -115,6 +94,58 @@ img{
 
 /*======= End of Global Styles =======*/
 
+
+
+/*======= Page Transition =======*/
+
+.transition {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 100vw;
+    height: 100vh;
+    background-color: $primary-color;
+    z-index: 100;
+
+    @include flexCenter(row);
+
+    transform: translateX(-100%);
+    @include easeTransition();
+
+    .transition-icon{
+        padding: 3rem;
+        border-radius: 50%;
+        background-color: $grey;
+
+        .bx {
+            font-size: 15rem;
+            animation: ring-ring .5s infinite ease;
+        }
+    }
+}
+
+.is-active{
+    left: 0;
+    transform: translateX(0);
+}
+
+.transition-2 {
+    right: -100%;
+    left: 0;
+
+    // animation: open-left-right .5s ease;
+    transform: translateX(100%);
+}
+
+.is-active2 {
+    right: 0;
+    transform: translateX(0);
+}
+
+/*======= End of Page Transition =======*/
+
+
+
 /*======= Header =======*/
 
 header {
@@ -132,16 +163,12 @@ header {
         @extend h2;
         padding: 2.5rem;
     }
-
-    @include largeSceen(){
-        display: none;
-    }
 }
 
 .nav{
     position: absolute;
     top: 0;
-    right: 0;
+    right: -100%;
     z-index: 2;
 
     background-color: $secondary-color;
@@ -154,8 +181,6 @@ header {
     justify-content: space-between;
     align-items: flex-start;
     flex-direction: column;
-
-    transform: translateX(100vw);
     @include easeTransition();
 
     .logo{
@@ -200,43 +225,13 @@ header {
     }
 
     &.open {
-        transform: translateX(0);
+        right: 0;
         @include easeTransition();
     }
 
     //media queries
     @include smallScreen(){
         width: 100%;
-    }
-
-    @include largeSceen(){
-        background: none;
-        transform: translateX(0);
-        flex-direction: row;
-        color: $secondary-color;
-        padding: 4rem;
-        width: 100%;
-        height: fit-content;
-
-        .logo{
-            display: unset;
-            width: 7vw;
-            cursor: pointer;
-        }
-
-        .nav-list{
-            display: flex;
-            gap: 1rem;
-
-            .nav-item{
-                margin: 0;
-                font-size: inherit;
-            }
-        }
-
-        .nav-footer, .nav-exit-menu-btn{
-            display: none;
-        }
     }
 }
 
@@ -262,22 +257,50 @@ header {
     height: 100%;
     width: fit-content;
 
-    .video-slider__container{
-        height: 100%;
-        width: 100%;
+    .slider-container{
         display: grid;
-        grid-auto-flow: rows;
+        grid-auto-flow: row;
         cursor: pointer;
+
+        .slider-card {
+                width: 100%;
+                height: 100%;
+                position: relative;
+        
+                &__vid {
+                    width: 100%;
+                    height: 100%;
+                    @include easeTransition();
+                }
+        
+                .vid-dim {
+                    filter: brightness(25%);
+                }
+        
+                &__info {
+                    position: absolute;
+                    top: 40%;
+                    padding-left: 3rem;
+        
+                }
+        
+        
+            }
     }
 
-    .video-slider__card{
+    .slider-card{
         width: 100%;
         height: 100%;
         position: relative;
 
-        .card__vid {
+        &__vid {
             width: 100%;
             height: 100%;
+            @include easeTransition();
+        }
+
+        .vid-dim{
+            filter: brightness(25%);
         }
 
         .card__info{
@@ -290,31 +313,187 @@ header {
         
     }
 
-    @include mediumScreen(){
-        @include flexCenter(row);
-        background-color: red;
-
-        .video-slider__container{
-            grid-auto-flow: column;
-            grid-auto-columns: 37%;
-
-            width: 100%;
-
-        }
-    }
-}
-
-@include mediumScreen() {
-
-    body{
-        height: 100vh;
-        cursor: grab;
-        overflow-y: hidden;
-        overflow-x: auto;
-    }
 }
 
 /*======= End of Video Sliders =======*/
 
+/*======= Contact =======*/
+.contact-section{
+    width: 100vw;
+    height: 100vh;
+}
+
+.contact {
+    @include flexCenter(row);
+    gap: 2rem;
+    width: 100%;
+    height: 100%;
+
+    &__img{
+        flex: 1;
+    }
+
+    &__info {
+        flex: 1;
+        @include flexCenter(column);
+        align-items: flex-start;
+        gap: 2.5rem;
+
+        &-title{
+            font-size: 15rem;
+            color: $grey;
+            position: relative;
+            left: -50%;
+        }
+
+        &-socials{
+            @include flexCenter(row);
+            justify-content: left;
+            gap: 1rem;
+
+            a {
+
+                .bx {
+                    font-size: 2rem;
+                    color: $secondary-color;
+                }
+            }
+        }
+
+        p {
+            font-size: 2rem;
+        }
+    }
+}
+
+/*======= End of Contact =======*/
+
+/*======= Media queries =======*/
+
+@media (min-width: 1025px) {
+    
+    body {
+        height: 100vh;
+    }
+
+    //Nav Menu
+    .nav-menu{
+        display: none;
+    }
+
+    .nav {
+        background: none;
+            right: 0;
+            flex-direction: row;
+            color: $secondary-color;
+            padding: 4rem;
+            width: 100%;
+            height: fit-content;
+        
+            .logo {
+                display: unset;
+                width: 7vw;
+                cursor: pointer;
+            }
+        
+            .nav-list {
+                display: flex;
+                gap: 1rem;
+        
+                .nav-item {
+                    margin: 0;
+                    font-size: inherit;
+                }
+            }
+        
+            .nav-footer,
+            .nav-exit-menu-btn {
+                display: none;
+            }
+    }
+
+    //Horizontal scroll bar
+    ::-webkit-scrollbar {
+        height: 0.5vh;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: $grey;
+        border-radius: 10px;
+        margin-inline: 35vw;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: $secondary-color;
+        border-radius: 10px;
+    }
 
 
+    //Video Slider
+    .video-slider {
+        @include flexCenter(row);
+        height: 90%;
+        overflow-x: scroll;
+
+        .slider-container {
+            grid-auto-flow: column;
+            grid-auto-columns: 37%;
+
+            .slider-card{
+                &__info {
+                        top: 100%;
+                
+                        &-title {
+                            font-size: 2.5rem;
+                            margin-top: 1.5rem;
+                            margin-bottom: .8rem
+                        }
+                
+                        h3 {
+                            color: $grey;
+                            font-size: 1.7rem;
+                        }
+                    }
+            }
+        }
+    }
+
+    //Contact Page
+    .contact-section{
+        @include flexCenter(row);
+        align-items: flex-end;
+    }
+
+    .contact{
+        width: 80%;
+        height: 93%;
+
+        &__img {
+                img{
+                    width: 100%;
+                    aspect-ratio: 1/1;
+                }
+            }
+
+        &__info {
+            &-title {
+                    left: -33%;
+                }
+        }
+    }
+}
+
+//Animations
+@keyframes ring-ring {
+    0% {
+        transform: rotate(45deg);
+    }
+
+    50% {
+        transform: rotate(-45deg);
+    }
+
+    100% {
+        transform: rotate(45deg);
+    }
+}
